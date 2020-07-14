@@ -131,23 +131,35 @@
                                                             <table class="table table-striped table-bordered second" style="width:100%">
                                                                 <thead>
                                                                     <tr>
+
                                                                         <th>No.</th>
-                                                                        <th>Agama</th>
-                                                                        <th>Status Aktif</th>
-                                                                        <th>Tanggal Dibuat</th>
-                                                                        <th>Ubah</th>
+                                                                        <th>Hubungan Keluarga</th>
+                                                                        <th>Nama Keluarga</th>
+                                                                        <th>Di Akui</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tfoot>
                                                                     <tr>
                                                                         <th>No.</th>
-                                                                        <th>Agama</th>
-                                                                        <th>Status Aktif</th>
-                                                                        <th>Tanggal Dibuat</th>
-                                                                        <th>Ubah</th>
+                                                                        <th>Hubungan Keluarga</th>
+                                                                        <th>Nama Keluarga</th>
+                                                                        <th>Di Akui</th>
                                                                     </tr>
                                                                 </tfoot>
                                                                 <tbody>
+                                                                    <?php
+                                                                        $no = 0;
+                                                                        foreach ($GetRiwayatKeluarga as $Get)
+                                                                        {
+                                                                            $no++;
+                                                                    ?>
+                                                                    <tr>
+                                                                        <th scope="row"><?= $no;?></th>
+                                                                        <td><?= $Get->HubunganKeluarga; ?></td>
+                                                                        <td><?= $Get->NamaKeluarga; ?></td>
+                                                                        <td><?= $Get->PengakuanKeluarga;?></td>
+                                                                    </tr>
+                                                                    <?php } ?>
                                                                 </tbody>
                                                             </table>
                                                         </div>
