@@ -61,58 +61,83 @@
                                     <div class="tab-pane fade show active" id="pills-campaign" role="tabpanel" aria-labelledby="pills-campaign-tab">
                                         <div class="row">
                                             <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 col-12">
-                                                <div class="card">
-                                                    <h5 class="card-header">Profil Lengkap</h5>
-                                                    <div class="card-body">
-                                                        <form action="#" id="basicform" data-parsley-validate="">
+                                                <?=$this->session->flashdata('notifikasi');?>
+                                                <form method="post" action="<?php echo base_url('agd/ekinerja/suntingprofil/submitsuntingprofil/'.$GetSuntingProfil->IdPegawai);?>" enctype="multipart/form-data">
+                                                    <div class="card">
+                                                        <h5 class="card-header">Profil Lengkap</h5>
+                                                        <div class="card-body">
                                                             <div class="form-group">
                                                                 <label>ID Pegawai</label>
-                                                                <input type="text" name="name" class="form-control" value="<?= $GetSuntingProfil->IdPegawai;?>" disabled>
+                                                                <input type="text" name="IdPegawai" class="form-control" value="<?= $GetSuntingProfil->IdPegawai;?>" disabled>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Nama Lengkap</label>
-                                                                <input type="text" name="name" class="form-control" value="<?= $GetSuntingProfil->NamaLengkap;?>" disabled>
+                                                                <input type="text" name="NamaLengkap" class="form-control" value="<?= $GetSuntingProfil->NamaLengkap;?>" disabled>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Jenis Kelamin</label>
-                                                                <input type="text" name="name" class="form-control" value="<?= $GetSuntingProfil->JenisKelamin;?>">
+                                                                <input type="text" name="JenisKelamin" class="form-control" value="<?= $GetSuntingProfil->JenisKelamin;?>" disabled>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Tempat Lahir</label>
-                                                                <input type="text" name="name" class="form-control" value="<?= $GetSuntingProfil->NamaLengkap;?>">
+                                                                <input type="text" name="TempatLahir" class="form-control <?php echo form_error('TempatLahir') ? 'is-invalid':'' ?>" value="<?= $GetSuntingProfil->TempatLahir;?>">
+                                                                <div class="invalid-feedback">
+                                                                    <?php echo form_error('TempatLahir') ?>
+                                                                </div> 
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Tanggal Lahir</label>
-                                                                <input type="text" name="name" class="form-control" value="<?= $GetSuntingProfil->NamaLengkap;?>">
+                                                                <input type="date" name="TanggalLahir" class="form-control <?php echo form_error('TanggalLahir') ? 'is-invalid':'' ?>" value="<?= $GetSuntingProfil->TanggalLahir;?>">
+                                                                <div class="invalid-feedback">
+                                                                    <?php echo form_error('TanggalLahir') ?>
+                                                                </div> 
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Agama</label>
-                                                                <input type="text" name="name" class="form-control" value="<?= $GetSuntingProfil->NamaLengkap;?>">
+                                                                <select class="form-control form-control-lg pilih" name="IdAgama">
+                                                                    <option value="<?= $GetSuntingProfil->IdAgama;?>" selected=""><b style="color: red;"><?php echo $GetSuntingProfil->Agama; ?></b></option>
+                                                                    <?php foreach($GetAgama as $Get) {?>
+                                                                        <option value="<?php echo $Get->IdAgama; ?>"><?php echo $Get->Agama; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                <div class="invalid-feedback">
+                                                                    <?php echo form_error('IdAgama') ?>
+                                                                </div> 
                                                             </div>
-                                                        </form>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 col-12">
-                                                <div class="card">
-                                                    <h5 class="card-header">Kontak</h5>
-                                                    <div class="card-body">
-                                                        <form action="#" id="basicform" data-parsley-validate="">
+                                                    <div class="card">
+                                                        <h5 class="card-header">Kontak</h5>
+                                                        <div class="card-body">
                                                             <div class="form-group">
                                                                 <label>Email</label>
-                                                                <input type="text" name="name" class="form-control" value="<?= $GetSuntingProfil->Email;?>">
+                                                                <input type="text" name="Email" class="form-control <?php echo form_error('Email') ? 'is-invalid':'' ?>" value="<?= $GetSuntingProfil->Email;?>">
+                                                                <div class="invalid-feedback">
+                                                                    <?php echo form_error('Email') ?>
+                                                                </div> 
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>No. Handphone</label>
-                                                                <input type="text" name="name" class="form-control" value="<?= $GetSuntingProfil->NomorHandphone;?>">
+                                                                <input type="text" name="NomorHandphone" class="form-control <?php echo form_error('NomorHandphone') ? 'is-invalid':'' ?>" value="<?= $GetSuntingProfil->NomorHandphone;?>">
+                                                                <div class="invalid-feedback">
+                                                                    <?php echo form_error('NomorHandphone') ?>
+                                                                </div> 
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>No. Telepon</label>
-                                                                <input type="text" name="name" class="form-control" value="<?= $GetSuntingProfil->NomorHandphone;?>">
+                                                                <input type="text" name="NomorTelepon" class="form-control <?php echo form_error('NomorTelepon') ? 'is-invalid':'' ?>" value="<?= $GetSuntingProfil->NomorTelepon;?>">
+                                                                <div class="invalid-feedback">
+                                                                    <?php echo form_error('NomorTelepon') ?>
+                                                                </div> 
                                                             </div>
-                                                        </form>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    <div class="form-group">
+                                                        <div class="col col-sm-12 col-lg-9 offset-sm-1 offset-lg-0">
+                                                            <button type="submit" class="btn btn-space btn-primary" onclick="return confirm('Jika Data Sudah Benar, Klik OK')"><i class="fas fa-paper-plane"></i> Simpan Perubahan</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

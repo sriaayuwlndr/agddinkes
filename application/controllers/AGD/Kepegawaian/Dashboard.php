@@ -3,7 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dashboard extends CI_Controller
 {
-
 	function  __construct()
 	{
 		parent::__construct();
@@ -16,5 +15,4 @@ class Dashboard extends CI_Controller
 		$data['HeaderTitle'] 	= 'Kepegawaian';
 		$this->load->view('agd/kepegawaian/dashboard/index', $data);
 	}
-
 }
