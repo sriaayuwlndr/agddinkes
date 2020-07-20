@@ -30,13 +30,13 @@
                                             <div class="user-avatar-info">
                                                 <div class="m-b-1 d-inline-block">
                                                     <div class="user-avatar-name">
-                                                        <h2 class="mb-1">Sri Ayu Wulandari</h2>
+                                                        <h2 class="mb-1"><?= $GetProfilPegawai->NamaLengkap;?></h2>
                                                     </div>
                                                 </div>
                                                 <div class="user-avatar-address">
                                                     <p class="border-bottom pb-3">
-                                                        <span class="d-xl-inline-block d-block mb-2"><i class="fa fa-map-marker-alt mr-2 text-primary "></i>Pengadministrasi Teknologi Informasi</span>
-                                                        <span class="mb-2 ml-xl-4 d-xl-inline-block d-block"><i class="fa fa-map-marker-alt mr-2 text-primary "></i>Pendidikan Terakhir: S1 </span>
+                                                        <span class="d-xl-inline-block d-block mb-2"><i class="fa fa-map-marker-alt mr-2 text-primary "></i><?= $GetProfilPegawai->Jabatan;?></span>
+                                                        <span class="mb-2 ml-xl-4 d-xl-inline-block d-block"><i class="fa fa-map-marker-alt mr-2 text-primary "></i>Pendidikan Terakhir: <?= $GetProfilPegawai->PendidikanFormal;?> </span>
                                                         <span class="mb-2 d-xl-inline-block d-block ml-xl-4"><i class="fa fa-map-marker-alt mr-2 text-primary "></i>Mulai Berkerja: 01 Nov 2019</span>
                                                         <span class="mb-2 d-xl-inline-block d-block ml-xl-4"><i class="fa fa-map-marker-alt mr-2 text-primary "></i>Perempuan</span>
                                                     </p>
@@ -74,9 +74,9 @@
                                         <div class="row">
                                             <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 col-12">
                                                 <div class="card">
-                                                    <h5 class="card-header">Profil Lengkap</h5>
+                                                    <h5 class="card-header">Identitas Pegawai</h5>
                                                     <div class="card-body">
-                                                        <form action="#" id="basicform" data-parsley-validate="">
+                                                        <form action="#">
                                                             <div class="form-group">
                                                                 <label>ID Pegawai</label>
                                                                 <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->IdPegawai;?>" disabled>
@@ -86,21 +86,41 @@
                                                                 <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NamaLengkap;?>" disabled>
                                                             </div>
                                                             <div class="form-group">
+                                                                <label>Gelar Depan</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->GelarDepan;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Gelar Belakang</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->GelarBelakang;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
                                                                 <label>Jenis Kelamin</label>
                                                                 <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->JenisKelamin;?>" disabled>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Tempat Lahir</label>
-                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NamaLengkap;?>" disabled>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->TempatLahir;?>" disabled>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Tanggal Lahir</label>
-                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NamaLengkap;?>" disabled>
+                                                                <input type="text" name="name" class="form-control" value="<?= date('d M Y', strtotime($GetProfilPegawai->TanggalLahir));?>" disabled>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Agama</label>
-                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NamaLengkap;?>" disabled>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->Agama;?>" disabled>
                                                             </div>
+                                                            <div class="form-group">
+                                                                <label>Status Pernikahan</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->StatusPerkawinan;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Golongan Darah</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->GolonganDarah;?>" disabled>
+                                                            </div>
+                                                            <!-- <div class="form-group">
+                                                                <label>Jumlah Anak</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->Agama;?>" disabled>
+                                                            </div> -->
                                                         </form>
                                                     </div>
                                                 </div>
@@ -110,6 +130,10 @@
                                                     <h5 class="card-header">Kontak</h5>
                                                     <div class="card-body">
                                                         <form action="#" id="basicform" data-parsley-validate="">
+                                                            <div class="form-group">
+                                                                <label>Alamat</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->Alamat;?>" disabled>
+                                                            </div>
                                                             <div class="form-group">
                                                                 <label>Email</label>
                                                                 <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->Email;?>" disabled>
@@ -121,6 +145,120 @@
                                                             <div class="form-group">
                                                                 <label>No. Telepon</label>
                                                                 <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NomorHandphone;?>" disabled>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="card">
+                                                    <h5 class="card-header">Informasi Jabatan</h5>
+                                                    <div class="card-body">
+                                                        <form action="#" id="basicform" data-parsley-validate="">
+                                                            <div class="form-group">
+                                                                <label>Jabatan Pegawai</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->Jabatan;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Pendidikan Terakhir</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetPendidikanTerakhir->PendidikanFormal;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Jabatan Atasan</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetJabatanAtasan->JabatanAtasan;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Nama Atasan</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetNamaAtasan->NamaAtasan;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Unit Kerja</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->UnitKerja;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Pendidikan Terakhir</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NomorHandphone;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Masa Kerja</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NomorHandphone;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Status Pegawai</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->StatusPegawai;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Status Jam Kerja</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->StatusJamKerja;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Mulai Kerja</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= date('d M Y', strtotime($GetProfilPegawai->MulaiKerja));?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Lama Bekerja</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetMasaKerja->MasaKerja;?>" disabled>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="card">
+                                                    <h5 class="card-header">Lainnya</h5>
+                                                    <div class="card-body">
+                                                        <form action="#" id="basicform" data-parsley-validate="">
+                                                            <div class="form-group">
+                                                                <label>Nomor KTP</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NIK;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Nomor NPWP</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NomorNPWP;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Nomor Kartu Keluarga</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NomorKK;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Nomor Rekening</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NomorRekening;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Nomor SIM A</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NomorSimA;?>" disabled>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Nomor SIM C</label>
+                                                                <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NomorSimC;?>" disabled>
+                                                            </div>
+                                                            <div class="form-row form-group">
+                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                    <label>Nomor STR</label>
+                                                                    <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NomorSTR;?>" disabled>
+                                                                </div>
+                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                    <label>Tanggal Berlaku STR</label>
+                                                                    <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->TanggalBerlakuSTR;?>" disabled>
+                                                                </div>
+                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                    <label>Tanggal Expired STR</label>
+                                                                    <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->TanggalExpiredSTR;?>" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row form-group">
+                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                    <label>Nomor SIPP</label>
+                                                                    <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->NomorSIPP;?>" disabled>
+                                                                </div>
+                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                    <label>Tanggal Berlaku SIPP</label>
+                                                                    <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->TanggalBerlakuSIPP;?>" disabled>
+                                                                </div>
+                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                    <label>Tanggal Expired SIPP</label>
+                                                                    <input type="text" name="name" class="form-control" value="<?= $GetProfilPegawai->TanggalExpiredSIPP;?>" disabled>
+                                                                </div>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -141,19 +279,19 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>No.</th>
-                                                                        <th>Agama</th>
-                                                                        <th>Status Aktif</th>
-                                                                        <th>Tanggal Dibuat</th>
-                                                                        <th>Ubah</th>
+                                                                        <th>Jabatan</th>
+                                                                        <th>Nomor SK</th>
+                                                                        <th>Masa Berlaku</th>
+                                                                        <th>Status Jabatan</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tfoot>
                                                                     <tr>
                                                                         <th>No.</th>
-                                                                        <th>Agama</th>
-                                                                        <th>Status Aktif</th>
-                                                                        <th>Tanggal Dibuat</th>
-                                                                        <th>Ubah</th>
+                                                                        <th>Jabatan</th>
+                                                                        <th>Nomor SK</th>
+                                                                        <th>Masa Berlaku</th>
+                                                                        <th>Status Jabatan</th>
                                                                     </tr>
                                                                 </tfoot>
                                                                 <tbody>
@@ -178,22 +316,31 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>No.</th>
-                                                                        <th>Agama</th>
-                                                                        <th>Status Aktif</th>
-                                                                        <th>Tanggal Dibuat</th>
-                                                                        <th>Ubah</th>
+                                                                        <th>Pendidikan Formal</th>
+                                                                        <th>Status Pengakuan</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tfoot>
                                                                     <tr>
                                                                         <th>No.</th>
-                                                                        <th>Agama</th>
-                                                                        <th>Status Aktif</th>
-                                                                        <th>Tanggal Dibuat</th>
-                                                                        <th>Ubah</th>
+                                                                        <th>Pendidikan Formal</th>
+                                                                        <th>Status Pengakuan</th>
                                                                     </tr>
                                                                 </tfoot>
                                                                 <tbody>
+                                                                    <?php 
+                                                                        $no = 0;
+                                                                        foreach($GetRiwayatPendidikanFormal as $Get)
+                                                                        {  
+                                                                            $no++;
+
+                                                                        ?>
+                                                                        <tr>
+                                                                            <th scope="row"><?= $no;?></th>
+                                                                            <td><?= $Get->PendidikanFormal;?></td>
+                                                                            <td><?= $Get->StatusPengakuanPendidikanFormal;?></td>
+                                                                        </tr>
+                                                                    <?php } ?>
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -215,22 +362,34 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>No.</th>
-                                                                        <th>Agama</th>
-                                                                        <th>Status Aktif</th>
-                                                                        <th>Tanggal Dibuat</th>
-                                                                        <th>Ubah</th>
+                                                                        <th>Hubungan Keluarga</th>
+                                                                        <th>Nama Keluarga</th>
+                                                                        <th>Status</th>
+                                                                       
                                                                     </tr>
                                                                 </thead>
                                                                 <tfoot>
                                                                     <tr>
                                                                         <th>No.</th>
-                                                                        <th>Agama</th>
-                                                                        <th>Status Aktif</th>
-                                                                        <th>Tanggal Dibuat</th>
-                                                                        <th>Ubah</th>
+                                                                        <th>Hubungan Keluarga</th>
+                                                                        <th>Nama Keluarga</th>
+                                                                        <th>Status</th>
                                                                     </tr>
                                                                 </tfoot>
                                                                 <tbody>
+                                                                    <?php
+                                                                        $no = 0;
+                                                                        foreach ($GetRiwayatKeluarga as $Get)
+                                                                        {
+                                                                            $no++;
+                                                                    ?>
+                                                                    <tr>
+                                                                        <th scope="row"><?= $no;?></th>
+                                                                        <td><?= $Get->HubunganKeluarga; ?></td>
+                                                                        <td><?= $Get->NamaKeluarga; ?></td>
+                                                                        <td><?= $Get->PengakuanKeluarga;?></td>
+                                                                    </tr>
+                                                                    <?php } ?>
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -252,19 +411,17 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>No.</th>
-                                                                        <th>Agama</th>
-                                                                        <th>Status Aktif</th>
-                                                                        <th>Tanggal Dibuat</th>
-                                                                        <th>Ubah</th>
+                                                                        <th>Pelatihan</th>
+                                                                        <th>Lokasi</th>
+                                                                        <th>Masa Berlaku</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tfoot>
                                                                     <tr>
                                                                         <th>No.</th>
-                                                                        <th>Agama</th>
-                                                                        <th>Status Aktif</th>
-                                                                        <th>Tanggal Dibuat</th>
-                                                                        <th>Ubah</th>
+                                                                        <th>Pelatihan</th>
+                                                                        <th>Lokasi</th>
+                                                                        <th>Masa Berlaku</th>
                                                                     </tr>
                                                                 </tfoot>
                                                                 <tbody>
@@ -289,19 +446,19 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>No.</th>
-                                                                        <th>Agama</th>
-                                                                        <th>Status Aktif</th>
-                                                                        <th>Tanggal Dibuat</th>
-                                                                        <th>Ubah</th>
+                                                                        <th>Nama</th>
+                                                                        <th>Status</th>
+                                                                        <th>Tanggal SK</th>
+                                                                        <th>Alasan</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tfoot>
                                                                     <tr>
                                                                         <th>No.</th>
-                                                                        <th>Agama</th>
-                                                                        <th>Status Aktif</th>
-                                                                        <th>Tanggal Dibuat</th>
-                                                                        <th>Ubah</th>
+                                                                        <th>Nama</th>
+                                                                        <th>Status</th>
+                                                                        <th>Tanggal SK</th>
+                                                                        <th>Alasan</th>
                                                                     </tr>
                                                                 </tfoot>
                                                                 <tbody>

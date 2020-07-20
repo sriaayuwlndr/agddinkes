@@ -53,57 +53,23 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12">
-                        <!-- <div class="row">
-                            <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12">
-                                <div class="card border-3 border-top border-top-primary">
-                                    <div class="card-body">
-                                        <h5 class="text-muted">Sisa Cuti Tahun 2020</h5>
-                                        <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">12 Hari</h1>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12">
-                                <div class="card border-3 border-top border-top-primary">
-                                    <div class="card-body">
-                                        <h5 class="text-muted">Pesan dari Kepegawaian</h5>
-                                        <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">12 Pesan</h1>
-                                        </div>
-                                        <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                            <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">Lihat Semua Pesan</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12">
-                                <div class="card border-3 border-top border-top-primary">
-                                    <div class="card-body">
-                                        <h5 class="text-muted">Persetujuan Perubahan Data</h5>
-                                        <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">12</h1>
-                                        </div>
-                                        <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                            <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">Lihat Semua</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="row">
                             <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 col-12">
                                 <div class="card">
-                                    <h5 class="card-header">Informasi Terkini</h5>
+                                    <h5 class="card-header">Informasi Kepegawaian</h5>
                                     <div class="card-body">
                                         <ul class="list-unstyled" style="text-align: justify;">
+                                            <?php foreach($GetInformasi as $Get) { ?>
                                             <li class="media">
-                                                <img class=" mr-3 user-avatar-lg rounded" src="<?php echo base_url(); ?>assets/admin/images/avatar-4.jpg" alt="Generic placeholder image">
+                                                <img class=" mr-3 user-avatar-lg rounded" src="<?php echo base_url('media/gambar/'.$Get->Gambar); ?>" alt="Generic placeholder image">
                                                 <div class="media-body">
-                                                    <h5 class="mt-0 mb-1">Pengumuman Rekrutmen</h5> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.<br>
-                                                    <h5 class="mt-0 mb-1">Jumat, 16 Juni 2020</h5>
+                                                    <h5 class="mt-0 mb-1"><?= $Get->Judul?></h5> <?= $Get->Isi?><br><a href="<?php echo base_url('media/informasikepegawaian/'.$Get->LokasiFile); ?>"><?= $Get->LokasiFile;?></a>
+                                                    
+                                                    <h5 class="mt-0 mb-1"><?= date('d M Y H:i', strtotime($Get->TanggalDibuat));?></h5>
+                                                    <br>
                                                 </div>
                                             </li>
+                                            <?php } ?>
                                         </ul>
                                     </div>
                                 </div>

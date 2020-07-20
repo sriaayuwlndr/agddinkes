@@ -18,6 +18,13 @@ class Profil extends CI_Controller
 		$data['HeaderTitle'] 			= 'E-Kinerja';
 		$IdPegawai 						= $this->session->userdata('IdPegawai');
 		$data['GetProfilPegawai'] 		= $this->ModelProfil->get($IdPegawai);
+		$data['GetJabatanAtasan'] 		= $this->ModelProfil->GetJabatanAtasan($IdPegawai);
+		$IdJabatanAtasan 				= $data['GetJabatanAtasan']->IdJabatanAtasan; //Get Id Jabatan Atasan
+		$data['GetNamaAtasan'] 			= $this->ModelProfil->GetNamaAtasan($IdJabatanAtasan); //Get Nama Atasan
+		$data['GetMasaKerja'] 			= $this->ModelProfil->GetMasaKerja($IdPegawai); //Get Masa Kerja
+		$data['GetRiwayatPendidikanFormal'] 	= $this->ModelProfil->GetRiwayatPendidikanFormal($IdPegawai); //Get Masa Kerja
+		$data['GetRiwayatKeluarga'] 	= $this->ModelProfil->GetRiwayatKeluarga($IdPegawai); //Get Masa Kerja
+		$data['GetPendidikanTerakhir'] 		= $this->ModelProfil->GetPendidikanTerakhir($IdPegawai); //Get Masa Kerja
 		$this->load->view('agd/ekinerja/personal/profil', $data);
 	}
 }

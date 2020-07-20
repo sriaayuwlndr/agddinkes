@@ -59,7 +59,7 @@ class ModelSuntingProfil extends CI_Model
             ['field'    => 'NomorTelepon',
             'label'     => 'NomorTelepon',
             'rules'     => 'required',
-            'errors'    => array('required' => '<b>%s Wajib Diisi.</b>')],
+            'errors'    => array('required' => '<b>%s Wajib Diisi.</b>')]
         ];
     }
 

@@ -54,8 +54,8 @@ class SuntingProfil extends CI_Controller
 		if ($validasi->run()) 
 		{
 			//Jika Data Lolos Validasi, Maka Data Ditambahkan Ke Database
-			// $IdPegawai 						= $this->session->userdata('IdPegawai');
-			$this->ModelSuntingProfil->SubmitSuntingProfil(IdPegawai);
+			$IdPegawai 						= $this->session->userdata('IdPegawai');
+			$this->ModelSuntingProfil->SubmitSuntingProfil($IdPegawai);
 			$this->session->set_flashdata('notifikasi', '<div class="alert alert-success" role="alert">Berhasil Disimpan!</div>');
 			redirect('agd/ekinerja/suntingprofil'); //Redirect Biar Gak Resubmission
 		}
