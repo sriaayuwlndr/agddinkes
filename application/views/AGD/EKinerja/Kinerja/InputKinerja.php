@@ -20,14 +20,15 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div id="calendar1"></div>
+                                <?=$this->session->flashdata('notifikasi');?>
+                                <div id="calendar1"></div> <!-- Manggil Library Javascript Full Calendar -->
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal fade" id="ModalInputAktivitasUtama" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-                    <div class="modal-dialog" role="document" >
-                        <div class="modal-content" style="width: 100%; ">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Input Kinerja</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -38,8 +39,6 @@
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-5">
                                         <div class="section-block">
-                                            <!-- <h5 class="section-title">Simple Card Tabs</h5>
-                                            <p>Takes the basic nav from above and adds the .nav-tabs class to generate a tabbed interface..</p> -->
                                         </div>
                                         <div class="simple-card" style="border-color: #e6e6e6; border-width: 2px;">
                                             <ul class="nav nav-tabs" id="myTab5" role="tablist">
@@ -58,27 +57,30 @@
                                                 <!-- =============== TAB INPUT AKTIVITAS UTAMA ============== -->
                                                 <!-- ========================================================= -->
                                                 <div class="tab-pane fade show active" id="utama-simple" role="tabpanel" aria-labelledby="utama-tab-simple" >
-                                                    <form method="POST" action="<?= base_url('agd/ekinerja/inputkinerja/AddAktivitasUtama');?>" enctype="multipart/form-data">
+                                                    <form method="POST" action="<?= base_url('agd/ekinerja/inputkinerja/addaktivitas');?>" enctype="multipart/form-data">
                                                         <div class="form-group" id="GetTanggalUtama">
                                                             
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-form-label">Daftar Aktivitas Utama</label>
-                                                            <select class="form-control" name="IdAktivitas">
+                                                            <select class="form-control <?php echo form_error('IdAktivitas') ? 'is-invalid':'' ?>" name="IdAktivitas">
                                                                 <option selected disabled>--Pilih Aktivitas--</option>
                                                                 <?php foreach($GetAktivitasUtama as $Get) {?>
                                                                     <option value="<?= $Get['IdAktivitas'];?>"><?= $Get['Aktivitas'].' ( '.$Get['WaktuEfektif'].' Menit)';?></option>
                                                                 <?php } ?>
                                                             </select>
+                                                            <div class="invalid-feedback">
+                                                                <?php echo form_error('IdAktivitas') ?>
+                                                            </div> 
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="recipient-name" class="col-form-label">Jam Mulai*</label>
-                                                            <input type="time" class="form-control" id="JamMulai" name="JamMulai">
+                                                            <input type="time" class="form-control <?php echo form_error('JamMulai') ? 'is-invalid':'' ?>" id="JamMulai" name="JamMulai">
                                                             <?= form_error('JamMulai', '<small class="text-danger pl-3">', '</small>'); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="recipient-name" class="col-form-label">Jam Selesai:</label>
-                                                            <input type="time" class="form-control" id="JamSelesai" name="JamSelesai">
+                                                            <input type="time" class="form-control <?php echo form_error('JamSelesai') ? 'is-invalid':'' ?>" id="JamSelesai" name="JamSelesai">
                                                             <?= form_error('JamSelesai', '<small class="text-danger pl-3">', '</small>'); ?>
                                                         </div>
                                                         <div class="form-group">
@@ -96,32 +98,35 @@
                                                 <!-- =============== TAB INPUT AKTIVITAS UTAMA END ============== -->
                                                 <!-- ========================================================= -->
                                                  <!-- ========================================================= -->
-                                                <!-- =============== TAB INPUT AKTIVITAS UMUM============== -->
+                                                <!-- =============== TAB INPUT AKTIVITAS UMUM ============== -->
                                                 <!-- ========================================================= -->
-                                                <div class="tab-pane fade show active" id="umum-simple" role="tabpanel" aria-labelledby="umum-tab-simple" >
-                                                    <form>
+                                                <div class="tab-pane fade" id="umum-simple" role="tabpanel" aria-labelledby="umum-tab-simple" >
+                                                    <form method="POST" action="<?= base_url('agd/ekinerja/inputkinerja/addaktivitas');?>" enctype="multipart/form-data">
                                                         <!-- <div class="form-group">
                                                             <label for="recipient-name" class="col-form-label">Tanggal Kinerja*</label>
                                                             <input type="text" class="form-control" id="tgl" name="TanggalKinerja" disabled="">
                                                         </div> -->
-                                                        <div class="form-group" id="GetTanggalUmum"></div>
+                                                        <div class="form-group" id="GetTanggalUmum"><!-- Ada di JS FORM INPUTNYA --></div> 
                                                         <div class="form-group">
                                                             <label class="col-form-label">Daftar Aktivitas Umum</label>
-                                                            <select class="form-control pilih">
+                                                            <select class="form-control <?php echo form_error('IdAktivitas') ? 'is-invalid':'' ?>" name="IdAktivitas">
                                                                 <option selected disabled>--Pilih Aktivitas--</option>
                                                                 <?php foreach($GetAktivitasUmum as $Get) {?>
                                                                     <option value="<?= $Get['IdAktivitas'];?>"><?= $Get['Aktivitas'].' ( '.$Get['WaktuEfektif'].' Menit)';?></option>
                                                                 <?php } ?>
                                                             </select>
+                                                            <div class="invalid-feedback">
+                                                                <?php echo form_error('IdAktivitas') ?>
+                                                            </div> 
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="recipient-name" class="col-form-label">Jam Mulai*</label>
-                                                            <input type="time" class="form-control" id="JamMulai" name="JamMulai">
+                                                            <input type="time" class="form-control <?php echo form_error('JamMulai') ? 'is-invalid':'' ?>" id="JamMulai" name="JamMulai">
                                                             <?= form_error('JamMulai', '<small class="text-danger pl-3">', '</small>'); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="recipient-name" class="col-form-label">Jam Selesai:</label>
-                                                            <input type="time" class="form-control" id="JamSelesai" name="JamSelesai">
+                                                            <input type="time" class="form-control <?php echo form_error('JamSelesai') ? 'is-invalid':'' ?>" id="JamSelesai" name="JamSelesai">
                                                             <?= form_error('JamSelesai', '<small class="text-danger pl-3">', '</small>'); ?>
                                                         </div>
                                                         <div class="form-group">
@@ -174,73 +179,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <!-- <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="example" class="table table-striped table-bordered second" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Tanggal Kinerja</th>
-                                                <th>Jam Mulai</th>
-                                                <th>Jam Selesai</th>
-                                                <th>Keterangan</th>
-                                                <th>Status Validasi</th>
-                                                <th>Waktu Efektif</th>
-                                                <th>Volume</th>
-                                                <th>Capaian</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Tanggal Kinerja</th>
-                                                <th>Jam Mulai</th>
-                                                <th>Jam Selesai</th>
-                                                <th>Keterangan</th>
-                                                <th>Status Validasi</th>
-                                                <th>Waktu Efektif</th>
-                                                <th>Volume</th>
-                                                <th>Capaian</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            <?php
-                                                $no = 0;
-                                                foreach ($GetKinerjaPegawai as $Get)
-                                                {
-                                                    $no++;
-                                            ?>
-                                            <tr>
-                                                <th scope="row"><?= $no;?></th>
-                                                <td><?= date('d M Y',strtotime($Get->TanggalKinerja)); ?></td>
-                                                <td><?= date('H:i:s',strtotime($Get->JamMulai)); ?></td>
-                                                <td><?= date('H:i:s',strtotime($Get->JamSelesai)); ?></td>
-                                                <td><?= $Get->Keterangan; ?></td>
-                                                <td><?= $Get->StatusValidasiKinerja; ?></td>
-                                                <td><?= $Get->WaktuEfektif; ?></td>
-                                                <td><?= $Get->Volume; ?></td>
-                                                <td><?= $Get->Capaian; ?></td>
-                                                <td style="width: 10%;">
-                                                    <a href="<?= base_url('agd/ekinerja/penilaiankinerja/penilaianaktivitas/'.$Get->IdPegawai);?>" class="btn btn-rounded btn-info btn-xs"><i class="fas fa-edit"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>

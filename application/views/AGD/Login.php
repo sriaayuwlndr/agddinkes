@@ -34,7 +34,7 @@
     <!-- ============================================================== -->
     <div class="splash-container">
         <div class="card ">
-            <div class="card-header text-center"><a href="<?php echo base_url('login');?>"><img class="logo-img" src="<?php echo base_url(); ?>media/gambar/LogoAGD.png" alt="logo" width="20%"></a><br><br><span class="splash-description">Sistem Informasi Manajemen</span>
+            <div class="card-header text-center"><a href="<?php echo base_url('agd/login');?>"><img class="logo-img" src="<?php echo base_url(); ?>media/gambar/LogoAGD.png" alt="logo" width="20%"></a><br><br><span class="splash-description">Sistem Informasi Manajemen</span>
                 Ambulans Gawat Darurat<br>Dinas Kesehatan Provinsi DKI Jakarta
             </div>
             <div class="card-body">

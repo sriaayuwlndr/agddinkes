@@ -1,7 +1,7 @@
         <?php $this->load->view("agd/partial/header.php") ?>
         <?php $this->load->view("agd/partial/menu.php") ?>
         <div class="dashboard-wrapper">
-            <div class="container-fluid dashboard-content" style="padding-bottom: 30%;">
+            <div class="container-fluid dashboard-content">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
@@ -96,15 +96,21 @@
                                                             echo "<p class='text-danger'> $Get->StatusValidasiKinerja </p>";
                                                         }
 
-                                                        else
+                                                        else if($Get->StatusValidasi == 1)
                                                         {
                                                             echo "<p class='text-success'> $Get->StatusValidasiKinerja </p>";
+                                                        }
+
+                                                        else
+                                                        {
+                                                            echo "<p class='text-primary'> $Get->StatusValidasiKinerja </p>";
                                                         }
                                                     ?>                                                 
                                                 </td>
                                                 <td style="width: 30%;">
                                                     <a href="<?= base_url('agd/ekinerja/penilaiankinerja/validasiaktivitas/'.$Get->IdKinerja);?>" class="btn btn-rounded btn-info btn-xs" onclick="return confirm('Apakah Anda Yakin Memvalidasi Aktivitas Ini?')"><i class="fas fa-check"></i> Setuju</a>
-                                                    <a href="<?= base_url('agd/ekinerja/penilaiankinerja/BatalValidasiAktivitas/'.$Get->IdKinerja);?>" class="btn btn-rounded btn-danger btn-xs" onclick="return confirm('Yakin Untuk Membatalkan Validasi?')"><i class="fas fa-times"></i> Tidak Setuju</a>
+                                                    <a href="<?= base_url('agd/ekinerja/penilaiankinerja/batalvalidasiaktivitas/'.$Get->IdKinerja);?>" class="btn btn-rounded btn-danger btn-xs" onclick="return confirm('Apakah Anda Yakin Akan Membatalkan Validasi Aktivitas Ini?')"><i class="fas fa-check"></i> Tidak Setuju</a>
+                                                    <!-- <a href="<?= base_url('agd/ekinerja/penilaiankinerja/batalvalidasiaktivitas/'.$Get->IdKinerja);?>" class="btn btn-rounded btn-danger btn-xs" onclick="return confirm('Yakin Untuk Membatalkan Validasi?')"><i class="fas fa-times"></i> Tidak Setuju</a> -->
                                                 </td>
                                             </tr>
                                             <?php } ?>

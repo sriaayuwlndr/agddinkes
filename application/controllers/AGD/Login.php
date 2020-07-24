@@ -56,7 +56,7 @@ class Login extends CI_Controller
                     ];
 
                     $this->session->set_userdata($data);
-                    $this->PeriksaHakAkses(); //Validasi Hak Akses Pake Function PeriksaHakAkses
+                    $this->PeriksaHakAkses(); //Validasi Hak Akses Pake Function PeriksaHakAkses yang Ada Di Bawah
                	}
 
                	else 
@@ -70,7 +70,7 @@ class Login extends CI_Controller
             else 
             {
             	//Pengguna Sudah Tidak Aktif
-                $this->session->set_flashdata('notifikasi', '<div class="alert alert-danger" role="alert">Username atau Password Salah!</div>');
+                $this->session->set_flashdata('notifikasi', '<div class="alert alert-danger" role="alert">Username atau Password Salah! Pengguna Sudah Tidak Aktif</div>');
                 redirect('agd/login');
             }
         }
@@ -78,7 +78,7 @@ class Login extends CI_Controller
         else 
         {
             //Tidak Ada Pengguna/Tidak Terdaftar
-            $this->session->set_flashdata('notifikasi', '<div class="alert alert-danger" role="alert">Username atau Password Salah!</div>');
+            $this->session->set_flashdata('notifikasi', '<div class="alert alert-danger" role="alert">Username atau Password Salah! Tidak Ada Pengguna/Tidak Terdaftar</div>');
             redirect('agd/login');
         }
     }

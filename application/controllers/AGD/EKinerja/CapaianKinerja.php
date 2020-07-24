@@ -13,7 +13,7 @@ class CapaianKinerja extends CI_Controller
 
 	public function index()
 	{
-		$data['Title'] 					= 'Capaian Kinerja Bawahan | E-Kinerja';
+		$data['Title'] 					= 'Capaian Kinerja | E-Kinerja';
 		$data['HeaderTitle'] 			= 'E-Kinerja';
 		$IdPegawai 						= $this->session->userdata('IdPegawai');
 
@@ -28,19 +28,21 @@ class CapaianKinerja extends CI_Controller
 		else
 		{
 			$Bulan = date('m');
-			// var_dump($Bulan);
-			// die;
 			$Tahun = date('Y');
 			$TanggalHariIni = date('Y-m-d');
 		}
 
-		$GetIdStatusPegawai = $this->ModelCapaianKinerja->GetIdStatusPegawai($IdPegawai);
-		$GetIdStatusPegawai = $GetIdStatusPegawai['IdStatusPegawai'];
 
-		if ($GetIdStatusPegawai == 2)
+		$data['GetHariLibur'] 			= $this->ModelCapaianKinerja->GetHariLibur($Bulan, $Tahun);
+		$HariLibur 						= $data['GetHariLibur']->JumlahHariLibur;
+
+		$GetStatusJamKerja 				= $this->ModelCapaianKinerja->GetStatusJamKerja($IdPegawai);
+		$GetStatusJamKerja 				= $GetStatusJamKerja['IdStatusJamKerja'];
+
+		if ($GetStatusJamKerja == 2)
 		{
-			$TanggalPertama = date('Y-m-01', strtotime($TanggalHariIni));
-			$TanggalTerakhir = date('Y-m-t', strtotime($TanggalHariIni));
+			$TanggalPertama 	= date('Y-m-01', strtotime($TanggalHariIni));
+			$TanggalTerakhir 	= date('Y-m-t', strtotime($TanggalHariIni));
 
 			$Begin 	= new DateTime($TanggalPertama);
 			$End 	= new DateTime($TanggalTerakhir);
@@ -48,7 +50,7 @@ class CapaianKinerja extends CI_Controller
 			$DataRange = new DatePeriod($Begin, new DateInterval('P1D'), $End);
 			
 			$i 		= 0;
-			$X 		= 0;
+			$X 		= 1;
 			$End 	= 1;
 
 			foreach($DataRange as $date)
@@ -64,10 +66,9 @@ class CapaianKinerja extends CI_Controller
 				{
 					//echo $i;
 					$X    +=    $End-$i;
-
 				}
 
-				$HariLibur 			= 0; // count hari libur
+				$HariLibur 			= $HariLibur; // count hari libur
 				$JumlahHariKerja 	= $X - $HariLibur;
 				$End++;
 				$i++;
@@ -94,20 +95,23 @@ class CapaianKinerja extends CI_Controller
 		$data['BatasMaksimal'] 							= $Total;
 		$data['JumlahHariKerja'] 						= $JumlahHariKerja;
 		$data['JamKerjaPerHari'] 						= $JamKerjaPerHari;
+
+
 		$data['GetPenambahanCapaianWaktuEfektif'] 		= $this->ModelCapaianKinerja->GetPenambahanCapaianWaktuEfektif($IdPegawai, $Bulan, $Tahun);
 
 		$data['GetJumlahPenambahanCapaianWaktuEfektif']	= $this->ModelCapaianKinerja->GetJumlahPenambahanCapaianWaktuEfektif($IdPegawai, $Bulan, $Tahun);
 
 		$data['GetPenguranganCapaianWaktuEfektif'] 		= $this->ModelCapaianKinerja->GetPenguranganCapaianWaktuEfektif($IdPegawai, $Bulan, $Tahun);
 
-		$data['GetJumlahPenguranganCapaianWaktuEfektif'] = $this->ModelCapaianKinerja->GetJumlahPenguranganCapaianWaktuEfektif($IdPegawai, $Bulan, $Tahun);
+		$data['GetJumlahPenguranganCapaianWaktuEfektif']= $this->ModelCapaianKinerja->GetJumlahPenguranganCapaianWaktuEfektif($IdPegawai, $Bulan, $Tahun);
 
-		$data['GetSerapan'] 							= $this->db->get_where('RiwayatSerapan', ['Bulan'=>$Bulan, 'Tahun'=>$Tahun])->row_array();
-		// $query = $this->db->query("SELECT IdSerapan, Bulan, Tahun, NilaiSerapan FROM  RiwayatSerapan WHERE  (Bulan = $Bulan) AND (Tahun = $Tahun)";
-		// var_dump($data['GetSerapan']);
-		// echo $query;
-		// die;
-
+		$ConvertBulan 									= (int)$Bulan; //Diconvert ke Integer 
+		$ConvertTahun 									= (int)$Tahun; //Diconvert ke Integer
+		$data['GetSerapan'] 							= $this->ModelCapaianKinerja->GetSerapan($ConvertBulan, $ConvertTahun);
+		$data['GetPerilaku'] 							= $this->ModelCapaianKinerja->GetPerilaku($IdPegawai, $ConvertBulan, $ConvertTahun);
+		$data['GetBulan'] 								= $Bulan; 
+		$data['GetTahun'] 								= $Tahun;
+		$data['GetGajiPokok']							= $this->ModelCapaianKinerja->GetGajiPokok($IdPegawai);
 		$this->load->view('agd/ekinerja/kinerja/capaiankinerja', $data);
 	}
 

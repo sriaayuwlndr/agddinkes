@@ -18,6 +18,32 @@ class ModelPenilaianKinerja extends CI_Model
             ['field'    => 'IdAktivitas',
             'label'     => 'Aktivitas',
             'rules'     => 'required',
+            'errors'    => array('required' => '<b>%s Wajib Diisi.</b>')]
+        ];
+    }
+
+    public function rulesPenilaianPerilaku() //Rules Untuk Validasi Saat Tambah Data
+    {
+        return
+        [
+            ['field'    => 'IdPegawai',
+            'label'     => 'Nama Pegawai',
+            'rules'     => 'required',
+            'errors'    => array('required' => '<b>%s Wajib Diisi.</b>')],
+
+            ['field'    => 'NilaiPerilaku',
+            'label'     => 'Nilai Perilaku',
+            'rules'     => 'required',
+            'errors'    => array('required' => '<b>%s Wajib Diisi.</b>')],
+
+            ['field'    => 'Bulan',
+            'label'     => 'Bulan',
+            'rules'     => 'required',
+            'errors'    => array('required' => '<b>%s Wajib Diisi.</b>')],
+
+            ['field'    => 'Tahun',
+            'label'     => 'Tahun',
+            'rules'     => 'required',
             'errors'    => array('required' => '<b>%s Wajib Diisi.</b>')],
         ];
     }
@@ -54,11 +80,19 @@ class ModelPenilaianKinerja extends CI_Model
 
     public function BatalValidasiAktivitas($IdKinerja)
     {
-        $this->db->set('StatusValidasi', '1');
-        $this->db->where('IdKinerja', $IdKnerja);
+        $this->db->set('StatusValidasi', '2');
+        $this->db->where('IdKinerja', $IdKinerja);
         $this->db->update('MasterKinerjaPegawai');
         return $this->db->get_where('MasterKinerjaPegawai', ['IdKinerja' => $IdKinerja])->row_array();
     }
+
+    // public function BatalValidasiAktivitas($IdKinerja)
+    // {
+    //     $this->db->set('StatusValidasi', '2');
+    //     $this->db->where('IdKinerja', $IdKnerja);
+    //     $this->db->update('MasterKinerjaPegawai');
+    //     return $this->db->get_where('MasterKinerjaPegawai', ['IdKinerja' => $IdKinerja])->row_array();
+    // }
 
     public function GetBulan()
     {
@@ -68,6 +102,27 @@ class ModelPenilaianKinerja extends CI_Model
     public function GetTahun()
     {
         return $this->db->get('MasterTahun')->result();
+    }
+
+    public function AddPenilaianPerilaku($IdPegawaiSubmit)
+    {
+        $IdPegawai              = $this->input->post('IdPegawai');
+        $Bulan                  = $this->input->post('Bulan');
+        $Tahun                  = $this->input->post('Tahun');
+        $NilaiPerilaku          = $this->input->post('NilaiPerilaku');
+        // $TanggalDibuat          = date('')
+
+        $data = array
+        (
+            'IdPegawai'         => $IdPegawai,
+            'Bulan'             => $Bulan,
+            'Tahun'             => $Tahun,
+            'NilaiPerilaku'     => $NilaiPerilaku,
+            'IdPegawaiSubmit'   => $IdPegawaiSubmit,
+            // 'TanggalDibuat'     => $TanggalDibuat,
+        );
+
+        $this->db->insert('RiwayatPerilaku',$data);
     }
 
 }

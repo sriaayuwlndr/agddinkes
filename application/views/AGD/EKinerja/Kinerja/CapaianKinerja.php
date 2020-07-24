@@ -5,11 +5,11 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title">Capaian Kinerja</h2>
+                            <h2 class="pageheader-title">Capaian Kinerja Bulan <?= $GetBulan.' / '.$GetTahun;?></h2>
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-folder-open"></i> Capaian Kinerja</li>
+                                        <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-folder-open"></i> Capaian Kinerja Bulan <?= $GetBulan.' / '.$GetTahun;?></li>
                                     </ol>
                                 </nav>
                             </div>
@@ -20,7 +20,7 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
                             <div class="card-header d-flex">
-                                <h5 class="card-header-title">Capaian Kinerja </h5>
+                                <h5 class="card-header-title">Capaian Kinerja Bulan <?= $GetBulan.' / '.$GetTahun;?></h5>
                             </div>
                             <div class="card-body">
                                 <form method="post" action="<?php echo base_url('agd/ekinerja/capaiankinerja/');?>" enctype="multipart/form-data">
@@ -43,8 +43,8 @@
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Tanggal Kinerja</th>
-                                                <th>Jam Mulai</th>
-                                                <th>Jam Selesai</th>
+                                                <th>Aktivitas</th>
+                                                <th>Waktu Aktivitas</th>
                                                 <th>Keterangan</th>
                                                 <th>Status Validasi</th>
                                                 <th>Waktu Efektif</th>
@@ -57,8 +57,8 @@
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Tanggal Kinerja</th>
-                                                <th>Jam Mulai</th>
-                                                <th>Jam Selesai</th>
+                                                <th>Aktivitas</th>
+                                                <th>Waktu Aktivitas</th>
                                                 <th>Keterangan</th>
                                                 <th>Status Validasi</th>
                                                 <th>Waktu Efektif</th>
@@ -77,10 +77,27 @@
                                             <tr>
                                                 <th scope="row"><?= $no;?></th>
                                                 <td><?= date('d M Y',strtotime($Get->TanggalKinerja)); ?></td>
-                                                <td><?= date('H:i:s',strtotime($Get->JamMulai)); ?></td>
-                                                <td><?= date('H:i:s',strtotime($Get->JamSelesai)); ?></td>
+                                                <td><?= $Get->Aktivitas; ?></td>
+                                                <td><?= date('H:i',strtotime($Get->JamMulai)); ?> s/d <?= date('H:i',strtotime($Get->JamSelesai)); ?></td>
                                                 <td><?= $Get->Keterangan; ?></td>
-                                                <td><?= $Get->StatusValidasiKinerja; ?></td>
+                                                <td>
+                                                    <?php 
+                                                        if($Get->StatusValidasi == 0)
+                                                        {
+                                                            echo "<p class='text-danger'> $Get->StatusValidasiKinerja </p>";
+                                                        }
+
+                                                        else if($Get->StatusValidasi == 1)
+                                                        {
+                                                            echo "<p class='text-success'> $Get->StatusValidasiKinerja </p>";
+                                                        }
+
+                                                        else
+                                                        {
+                                                            echo "<p class='text-primary'> $Get->StatusValidasiKinerja </p>";
+                                                        }
+                                                    ?>     
+                                                </td>
                                                 <td><?= $Get->WaktuEfektif; ?></td>
                                                 <td><?= $Get->Volume; ?></td>
                                                 <td><?= $Get->Capaian; ?></td>
@@ -113,10 +130,8 @@
                                 <li class="list-group-item">1. Total Seluruh Capaian Waktu Efektif = <?= $GetAllCapaian['SemuaCapaianKinerja'];?></li>
                                 <li class="list-group-item">2. Total Validasi Capaian Waktu Efektif = 
                                     <?php 
-
-                                    $GetValidasiCapaian = $GetValidasiCapaian['ValidasiCapaianKInerja'];
-                                    echo $GetValidasiCapaian;
-
+                                        $GetValidasiCapaianWaktuEfektif = $GetValidasiCapaian['ValidasiCapaianKinerja'];
+                                        echo $GetValidasiCapaianWaktuEfektif;
                                     ?>
                                     
                                    <!--  <?php
@@ -136,7 +151,11 @@
                                 </li>
                                 <li class="list-group-item">3. Total Terlambat = <?= $GetTotalTerlambatDanPulangCepat->TotalTerlambat;?></li>
                                 <li class="list-group-item">4. Total Pulang Cepat = <?= $GetTotalTerlambatDanPulangCepat->TotalPulangCepat;?></li>
-                                <li class="list-group-item">5. Total Capaian Kinerja  = 
+                                <!-- <li class="list-group-item">5. Total Capaian Kinerja  = [cancel] -->
+                                    <!-- <?php 
+                                        $GetTotalCapaianKinerja = $GetValidasiCapaianWaktuEfektif;
+                                        echo $GetTotalCapaianKinerja;
+                                    ?> -->
 
 
                                    <!-- <?php 
@@ -147,7 +166,7 @@
 
 
 
-                                    <?php 
+                                   <!--  <?php 
                                         $GetTotalCapaianKinerja = $GetValidasiCapaian - $GetTotalTerlambatDanPulangCepat->TotalPulangCepat - $GetTotalTerlambatDanPulangCepat->TotalTerlambat;
 
                                             // echo $GetTotalCapaianKinerja;
@@ -164,12 +183,12 @@
                                             echo $GetTotalCapaianKinerja;
 
                                         }
-                                    ?>
+                                    ?> -->
                                         
-                                    </li>
-                                <li class="list-group-item">6. Batas Maksimal Jam Kerja Bulan Ini = <?= $BatasMaksimal;?></li>
-                                <li class="list-group-item">7. Hari Kerja Bulan Ini = <?= $JumlahHariKerja;?></li>
-                                <li class="list-group-item">8. Jam Kerja Per Hari = <?= $JamKerjaPerHari;?></li>
+                                    <!-- </li> -->
+                                <li class="list-group-item">5. Batas Maksimal Jam Kerja Bulan Ini = <?= $BatasMaksimal;?></li>
+                                <li class="list-group-item">6. Hari Kerja Bulan Ini = <?= $JumlahHariKerja;?></li>
+                                <li class="list-group-item">7. Jam Kerja Per Hari = <?= $JamKerjaPerHari;?></li>
                                
                             </ul>
                         </div>
@@ -230,34 +249,86 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div><!-- 
                             <div class="row">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="card">
                                         <div class="card-header d-flex" style="background-color: #ff512e;" >
-                                            <h5 class="card-header-title" style="color: white;">Total Capaian Aktivitas: 
+                                            <h5 class="card-header-title" style="color: white;">Total Sementara Capaian Waktu Efektif
+                                                <br>= Total Validasi Aktivitas + Total Penambah Capaian Waktu Efektif
+                                                <br>= 
                                                 <?php 
-
-
-
-                                                echo $GetTotalCapaianKinerja; 
-                                                echo '+';
-
-                                                 echo $GetJumlahPenambahanCapaianWaktuEfektif->Total;
-                                                 echo '= ';
-                                                 $TotalCapaianAktivitas = $GetTotalCapaianKinerja + $GetJumlahPenambahanCapaianWaktuEfektif->Total;
-                                                 echo $TotalCapaianAktivitas;
-
-
-                                                ?></h5>
+                                                    echo $GetValidasiCapaianWaktuEfektif; 
+                                                    echo ' + ';
+                                                    echo $GetJumlahPenambahanCapaianWaktuEfektif->Total;
+                                                    echo '<br> = ';
+                                                    $TotalSementaraCapaianWaktuEfektif = $GetValidasiCapaianWaktuEfektif + $GetJumlahPenambahanCapaianWaktuEfektif->Total;
+                                                    echo $TotalSementaraCapaianWaktuEfektif;
+                                                ?>
+                                            </h5>
                                         </div>
                                     </div>
                                 </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-header d-flex">
+                                <h5 class="card-header-title">
+                                    Total Sementara Capaian Waktu Efektif
+                                    <br>= Total Validasi Aktivitas + Total Penambah Capaian Waktu Efektif
+                                    <br>= 
+                                    <?php 
+                                        echo $GetValidasiCapaianWaktuEfektif; 
+                                        echo ' + ';
+                                        echo $GetJumlahPenambahanCapaianWaktuEfektif->Total;
+                                        echo '<br> = ';
+                                        $TotalSementaraCapaianWaktuEfektif = $GetValidasiCapaianWaktuEfektif + $GetJumlahPenambahanCapaianWaktuEfektif->Total;
+                                        echo $TotalSementaraCapaianWaktuEfektif;
+                                    ?>
+                                    <br>
+                                    <br>Total Akhir Capaian Waktu Efektif 
+                                    <br> = Total Sementara Capaian Waktu Efektif - Total Terlambat - Total Pulang Cepat
+                                    <br> = 
+                                    <?php 
+                                        echo $TotalSementaraCapaianWaktuEfektif; 
+                                        echo ' - ';
+                                        echo $GetTotalTerlambatDanPulangCepat->TotalTerlambat;
+                                        echo ' - ';
+                                        echo $GetTotalTerlambatDanPulangCepat->TotalPulangCepat;
+                                        echo '<br> = ';
+
+
+                                        $TotalAkhirCapaianWaktuEfektif = $TotalSementaraCapaianWaktuEfektif - $GetTotalTerlambatDanPulangCepat->TotalTerlambat - $GetTotalTerlambatDanPulangCepat->TotalPulangCepat;
+                                        echo $TotalAkhirCapaianWaktuEfektif;
+                                        
+                                        if ($TotalAkhirCapaianWaktuEfektif <= 0 )
+                                        {
+                                            echo '<br><br> Nilai Maksimal Total Akhir Capaian Waktu Efektif = ';
+                                            echo $TotalAkhirCapaianWaktuEfektif = 0;
+                                        }
+
+                                        else if($TotalAkhirCapaianWaktuEfektif >= $BatasMaksimal)
+                                        {
+                                            echo '<br><br> Nilai Maksimal Total Akhir Capaian Waktu Efektif = ';
+                                            echo $TotalAkhirCapaianWaktuEfektif = $BatasMaksimal;
+                                        }
+
+                                        else
+                                        {
+                                            echo '<br><br> Nilai Maksimal Total Akhir Capaian Waktu Efektif = ';
+                                            echo $TotalAkhirCapaianWaktuEfektif;
+                                        }
+
+                                    ?>
+                                </h5>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
@@ -308,7 +379,9 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="card">
                                         <div class="card-header d-flex" style="background-color: #ff512e;" >
-                                            <h5 class="card-header-title" style="color: white;">Total Pengurang Capaian Waktu Efektif: <?= $GetJumlahPenguranganCapaianWaktuEfektif->JumlahPengurangWaktuEfektif;?> %</h5>
+                                            <h5 class="card-header-title" style="color: white;">
+                                                Total Pengurang Capaian Waktu Efektif: 
+                                                <?= $TotalPengurangCapaianWaktuEfektif = $GetJumlahPenguranganCapaianWaktuEfektif->JumlahPengurangWaktuEfektif;?> %</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -317,7 +390,7 @@
                         </div>
                     </div>
                 </div>
-                <?php echo $PersenAktivitas = ($TotalCapaianAktivitas/$BatasMaksimal)*100 ?>
+                <?php $PersenAktivitas = ($TotalAkhirCapaianWaktuEfektif/$BatasMaksimal)*100 ?>
 
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -340,7 +413,8 @@
                                                 <th>Indisipliner %</th>
                                                 <th>Tunjangan Setelah Dipotong Indisipliner</th>
                                                 <th>Pemotongan Terlambat (Rp.)</th>
-                                                <th>TKD yang diterima</th>                                            
+                                                <th>Tunjangan Setelah Pemotongan Terlambat</th>                                         
+                                                <th>Hasil Perkiraan TKD yang diterima </th>                                         
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -355,21 +429,27 @@
                                                 <th>Indisipliner %</th>
                                                 <th>Tunjangan Setelah Dipotong Indisipliner</th>
                                                 <th>Pemotongan Terlambat (Rp.)</th>
-                                                <th>TKD yang diterima</th>
+                                                <th>Tunjangan Setelah Pemotongan Terlambat</th>
+                                                <th>Hasil Perkiraan TKD yang diterima </th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
                                             <tr>
                                                 <th><?= number_format($PersenAktivitas,2);?> %</th>
                                                 <td><?= number_format((number_format($PersenAktivitas,2)*70)/100,2) ?> %</td>
-                                                <td><?php 
-                                                    $Serapan = ($GetSerapan['NilaiSerapan']/100)*20;
-                                                    // echo $GetSerapan['NilaiSerapan'];
-                                                    echo number_format($Serapan,2);
-                                                    ?>                                             
+                                                <td>
+                                                    <?php 
+                                                        $Serapan = (($GetSerapan['NilaiSerapan'])*20)/100;
+                                                        echo number_format($Serapan,2);
+                                                    ?>
+                                                    %                               
                                                 </td>
                                                 <td>
-                                                    <?= number_format($Perilaku = 10,2);?>
+                                                    <?php
+                                                        $Perilaku = $GetPerilaku['NilaiPerilaku'];
+                                                        echo number_format($Perilaku,2);
+                                                    ?> 
+                                                    %
                                                 </td>
                                                 <td>
                                                     <?php
@@ -377,25 +457,48 @@
 
                                                         echo $Total;
                                                     ?>
+                                                    %
                                                 </td>
-                                                <td><?php $gajipokok = 4414973; 
-                                                echo number_format($gajipokok, 2, ',','.'); ?></td>
-                                                <td><?php $tkd = 4414973*60/100; 
-                                                echo number_format($tkd, 2, ',','.'); ?></td>
-                                                <td><?= $GetJumlahPenguranganCapaianWaktuEfektif->JumlahPengurangWaktuEfektif;?> %</td>
-                                                <td><?php $tun = $tkd-($tkd*($GetJumlahPenguranganCapaianWaktuEfektif->JumlahPengurangWaktuEfektif)/100);
-                                                echo number_format($tun, 2, ',','.'); ?></td>
+                                                <td>
+                                                    <?php 
+                                                        $gajipokok = $GetGajiPokok['GaPok']; 
+                                                        echo number_format($gajipokok, 2, ',','.');
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php 
+                                                        $tkd = $GetGajiPokok['NilaiTunjangan'];
+                                                        echo number_format($tkd, 2, ',','.'); 
+                                                    ?>
+                                                </td>
+                                                <!-- <td><?php $tkd = 4414973*60/100; 
+                                                echo number_format($tkd, 2, ',','.'); ?></td> -->
+                                                <td>
+                                                    <?= $TotalPengurangCapaianWaktuEfektif;?> %
+                                                </td>
+                                                <td>
+                                                    <?php 
+                                                        $tun = $tkd - ($tkd*($TotalPengurangCapaianWaktuEfektif)/100);
+                                                        echo number_format($tun, 2, ',','.'); 
+                                                    ?>
+                                                </td>
                                                 <td>
                                                     <?php
                                                         $PotonganTerlambat = ((1/173*$gajipokok)/60 * ($GetTotalTerlambatDanPulangCepat->TotalTerlambat + $GetTotalTerlambatDanPulangCepat->TotalPulangCepat));
-
                                                         echo number_format($PotonganTerlambat, 2, ',','.');
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <?php $tkdditerima = $tun-$PotonganTerlambat;
-
-                                                    echo number_format($tkdditerima, 2, ',','.');?>
+                                                    <?php
+                                                        $TKDPotonganTerlambat = $tun-$PotonganTerlambat;
+                                                        echo number_format($TKDPotonganTerlambat, 2, ',','.');
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                        $PerkiraanTKDDiterima = ($TKDPotonganTerlambat*$Total)/100;
+                                                        echo number_format($PerkiraanTKDDiterima, 2, ',','.');
+                                                    ?>
                                                 </td>
                                             </tr>
                                         </tbody>

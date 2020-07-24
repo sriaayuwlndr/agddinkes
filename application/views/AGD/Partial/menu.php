@@ -39,7 +39,7 @@
                                 foreach ($GetMenuDropdown as $md) { ?>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-<?= $md['kode'];?>" aria-controls="submenu-<?= $md['kode'];?>"><i class="fa fa-fw fa-rocket"></i> <?= $md['nama'];?></a>
+                                        <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-<?= $md['kode'];?>" aria-controls="submenu-<?= $md['kode'];?>"><i class="fab fa-fw fa-wpforms"></i> <?= $md['nama'];?></a>
                                         <div id="submenu-<?= $md['kode'];?>" class="collapse submenu" style="">
                                             <ul class="nav flex-column">
                                                 <!-- BACA SUB MENU -->

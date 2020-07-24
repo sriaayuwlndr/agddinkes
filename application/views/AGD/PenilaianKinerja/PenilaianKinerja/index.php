@@ -23,13 +23,9 @@
                                 <h5 class="card-header-title">Penilaian Kinerja Bawahan</h5>
                             </div>
                             <div class="card-body">
+                                <?=$this->session->flashdata('notifikasi');?>
                                 <div class="row">
-                                    <?php
-                                        $no = 0;
-                                        foreach ($GetBawahan as $Get)
-                                        {
-                                            $no++;
-                                    ?>
+                                    <?php foreach ($GetBawahan as $Get) { ?>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                         <div class="card" >
                                             <div class="card-header" style="background-color: #7eb2f2; color: white;">
@@ -43,29 +39,100 @@
                                                     <a href="<?= base_url('agd/ekinerja/penilaiankinerja/penilaianaktivitas/'.$Get->IdPegawai);?>" class="card-link">Aktivitas</a>
                                                 </div>
                                                 <div class="card-footer-item card-footer-item-bordered">
-                                                    <a href="#" class="card-link" data-toggle="modal" data-target="#exampleModal">Perilaku</a>
-
+                                                    <a href="#" class="card-link" data-toggle="modal" data-target="#exampleModal">
+                                                    Perilaku
+                                                    </a>
+                                                    
                                                 </div>
-                                                <div class="card-footer-item card-footer-item-bordered">
+                                                <!-- <div class="card-footer-item card-footer-item-bordered">
                                                     <a href="<?= base_url('agd/ekinerja/penilaiankinerja/capaiankinerja/'.$Get->IdPegawai);?>" class="card-link">Capaian</a>
-                                                </div>
-                                                
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
                                     <?php } ?>
+                                    <!-- ============ Modal Penilaian Perilaku ============ -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Penilaian Perilaku</h5>
+                                                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </a>
+                                                </div>
+                                                <form class="form-horizontal" method="post" action="<?= base_url('agd/ekinerja/penilaiankinerja/penilaianperilaku');?>" enctype="multipart/form-data">
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <div class="form-row">
+                                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                    <label style="">Nama Bawahan*</label>
+                                                                    <select class="selectpicker" name="IdPegawai">
+                                                                        <option selected disabled="">Pilih</option>
+                                                                        <?php foreach($GetBawahan as $Get) { ?>
+                                                                            <option value="<?= $Get->IdPegawai; ?>"><?= $Get->NamaLengkap;?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                    <label style="">Nilai*</label>
+                                                                    <select class="selectpicker" name="NilaiPerilaku">
+                                                                        <option selected disabled="">Pilih</option>
+                                                                        <?php for ($i = 1; $i <= 10; $i++) { ?>
+                                                                            <option value="<?= $i ?>"><?= $i ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="form-row">
+                                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                    <label style="">Bulan*</label>
+                                                                    <select class="selectpicker" name="Bulan">
+                                                                        <option selected disabled="">Pilih</option>
+                                                                        <?php foreach($GetBulan as $Get) { ?>
+                                                                            <option value="<?= $Get->IdBulan;?>"><?= $Get->Bulan;?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                    <label style="">Tahun*</label>
+                                                                    <select class="selectpicker" name="Tahun">
+                                                                        <option selected disabled="">Pilih</option>
+                                                                        <!-- <?php foreach($GetTahun as $Get) { ?>
+                                                                            <option value="<?= $Get->Tahun;?>"><?= $Get->Tahun;?></option>
+                                                                        <?php } ?> -->
+                                                                        <option value="<?= date('Y')-1;?>"><?= date('Y')-1;?></option>
+                                                                        <option value="<?= date('Y');?>"><?= date('Y');?></option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-space btn-primary"><i class="fas fa-paper-plane"></i> Submit</button>
+                                                        <button type="button" class="btn btn-space btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- ============ Modal Penilaian Perilaku ============ -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            </div>            
+        <?php $this->load->view("agd/partial/footer.php") ?>
+        <?php $this->load->view("agd/partial/js.php") ?>
+
+        <!-- <div class="modal fade" id="PerilakuModal" tabindex="-1" role="dialog" aria-labelledby="PerilakuModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Penilaian Perilaku</h5>
+                            <h5 class="modal-title" id="PerilakuModalLabel">Penilaian Perilaku</h5>
                             <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </a>
@@ -124,6 +191,3 @@
                 </div>
             </div> -->
 
-            
-        <?php $this->load->view("agd/partial/footer.php") ?>
-        <?php $this->load->view("agd/partial/js.php") ?>

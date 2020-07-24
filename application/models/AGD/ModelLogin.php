@@ -34,6 +34,6 @@ class ModelLogin extends CI_Model
         );
 
         $this->db->where('IdPegawai', $IdPegawai);
-        $this->db->update('ViewMasterLogin', $data);
+        $this->db->update('MasterLogin', $data);
     }
 }

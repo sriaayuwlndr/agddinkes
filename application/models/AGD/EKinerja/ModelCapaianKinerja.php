@@ -27,9 +27,14 @@ class ModelCapaianKinerja extends CI_Model
         return $this->db->get_where('ViewMasterPegawai', ['IdPegawai' => $IdPegawai])->row_array();
     }
 
-    public function GetIdStatusPegawai($IdPegawai)
+    public function GetStatusJamKerja($IdPegawai)
     {
         return $this->db->get_where('ViewMasterPegawai', ['IdPegawai' => $IdPegawai])->row_array();
+    }
+
+    public function GetHariLibur($Bulan, $Tahun)
+    {
+        return $this->db->query("SELECT COUNT(HariLibur) AS JumlahHariLibur FROM MasterHariLibur WHERE MONTH(TanggalHariLibur) = '$Bulan' AND year(TanggalHariLibur) = '$Tahun' AND StatusAktif = 1")->row();
     }
 
     public function GetKinerjaPegawai($IdPegawai, $Bulan, $Tahun)
@@ -44,21 +49,18 @@ class ModelCapaianKinerja extends CI_Model
 
     public function GetValidasiCapaian($IdPegawai, $Bulan, $Tahun)
     {
-        return $this->db->query("SELECT Case When SUM(capaian) IS NULL THEN 0 ELSE SUM(capaian) END AS ValidasiCapaianKInerja FROM ViewMasterKinerjaPegawai WHERE IdPegawai = '$IdPegawai' AND MONTH(TanggalKinerja) = '$Bulan' AND year(TanggalKinerja) = '$Tahun' AND StatusValidasi = '1'")->row_array();
+        return $this->db->query("SELECT Case When SUM(capaian) IS NULL THEN 0 ELSE SUM(capaian) END AS ValidasiCapaianKinerja FROM ViewMasterKinerjaPegawai WHERE IdPegawai = '$IdPegawai' AND MONTH(TanggalKinerja) = '$Bulan' AND year(TanggalKinerja) = '$Tahun' AND StatusValidasi = '1'")->row_array();
     }
 
     public function GetTotalTerlambatDanPulangCepat($IdPegawai, $Bulan, $Tahun)
     {
          return $this->db->query("SELECT Case When SUM(convert(int,Terlambat)) is null then 0 else SUM(convert(int,Terlambat)) end as TotalTerlambat, case when SUM(convert(int,PulangCepat)) is null then 0 else replace(SUM(convert(int,PulangCepat)), '-','') end as TotalPulangCepat from ViewKehadiran WHERE IdPegawai = '$IdPegawai' AND MONTH(JadwalKerja) = '$Bulan' AND year(JadwalKerja) = '$Tahun'")->row();
-
     }
 
-    // public function GetSerapan($Bulan, $Tahun)
-    // {
-    //    query = "SELECT NilaiSerapan FROM RiwayatSerapan WHERE Bulan ='$Bulan' AND Tahun='$Tahun'";
-    //    echo $query;
-    //    die;
-    // }
+    public function GetGajiPokok($IdPegawai)
+    {
+       return $this->db->get_where('V_HitungTunjangan', ['IdPegawai' => $IdPegawai])->row_array();
+    }
 
     public function GetPenambahanCapaianWaktuEfektif($IdPegawai, $Bulan, $Tahun)
     {
@@ -80,6 +82,13 @@ class ModelCapaianKinerja extends CI_Model
         return $this->db->query("EXEC SP_JumlahPengurangWaktuEfektif '$IdPegawai', '$Bulan', '$Tahun'")->row();
     }
 
+    public function GetSerapan($ConvertBulan, $ConvertTahun)
+    {
+        return $this->db->get_where('RiwayatSerapan', ['Bulan' => $ConvertBulan, 'Tahun' => $ConvertTahun])->row_array();
+    }
 
-    
+    public function GetPerilaku($IdPegawai, $ConvertBulan, $ConvertTahun)
+    {
+        return $this->db->get_where('RiwayatPerilaku', ['IdPegawai' => $IdPegawai, 'Bulan' => $ConvertBulan, 'Tahun' => $ConvertTahun])->row_array();
+    }  
 }

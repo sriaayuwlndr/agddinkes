@@ -20,6 +20,8 @@ class PenilaianKinerja extends CI_Controller
 		$GetJabatan						= $this->ModelPenilaianKinerja->getJabatan($IdPegawai);
 		$IdJabatan 						= $GetJabatan->IdJabatan;
 		$data['GetBawahan'] 			= $this->ModelPenilaianKinerja->getBawahan($IdJabatan);
+		// var_dump($data['GetBawahan']);
+		// die;
 		$data['GetBulan'] 				= $this->ModelPenilaianKinerja->GetBulan();
 		$data['GetTahun'] 				= $this->ModelPenilaianKinerja->GetTahun();
 		$this->load->view('agd/penilaiankinerja/penilaiankinerja/index', $data);
@@ -47,10 +49,6 @@ class PenilaianKinerja extends CI_Controller
 
 		$data['GetKinerjaPegawai'] 		= $this->ModelPenilaianKinerja->GetKinerjaPegawai($IdPegawai, $Bulan, $Tahun);
 		$data['GetPegawai'] 					= $this->ModelPenilaianKinerja->GetPegawai($IdPegawai);
-		// var_dump($Bulan);
-		// var_dump($Tahun);
-		// var_dump($IdPegawai);
-		// die;
 		$this->load->view('agd/penilaiankinerja/penilaiankinerja/penilaianaktivitas', $data);
 	}
 
@@ -68,9 +66,30 @@ class PenilaianKinerja extends CI_Controller
 		redirect('agd/ekinerja/penilaiankinerja/penilaianaktivitas/'.$IdPegawai);
 	}
 
-	public function PenilaianPerilaku($IdPegawai)
+	public function PenilaianPerilaku()
 	{
-		
+		$validasi = $this->form_validation->set_rules($this->ModelPenilaianKinerja->rulesPenilaianPerilaku());
+
+		if ($validasi->run()) 
+		{
+			$IdPegawaiSubmit = $this->session->userdata('IdPegawai'); //Get Id Pegawai Yang Mau Submit Perilaku
+        	$this->ModelPenilaianKinerja->AddPenilaianPerilaku($IdPegawaiSubmit);
+        	$this->session->set_flashdata('notifikasi', '<div class="alert alert-success" role="alert">Penilaian Perilaku berhasil diinput!</div>');
+			redirect('agd/ekinerja/penilaiankinerja'); //Redirect Biar Gak Resubmission
+		}
+
+		else
+		{
+			$data['Title'] 					= 'Penilaian Kinerja Bawahan | E-Kinerja';
+			$data['HeaderTitle'] 			= 'E-Kinerja';
+			$IdPegawai 						= $this->session->userdata('IdPegawai');
+			$GetJabatan						= $this->ModelPenilaianKinerja->getJabatan($IdPegawai);
+			$IdJabatan 						= $GetJabatan->IdJabatan;
+			$data['GetBawahan'] 			= $this->ModelPenilaianKinerja->getBawahan($IdJabatan);
+			$data['GetBulan'] 				= $this->ModelPenilaianKinerja->GetBulan();
+			$data['GetTahun'] 				= $this->ModelPenilaianKinerja->GetTahun();
+			$this->load->view('agd/penilaiankinerja/penilaiankinerja/index', $data);
+		}
 	}
 
 

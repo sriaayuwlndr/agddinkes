@@ -208,11 +208,10 @@
     <script src='<?php echo base_url(); ?>assets/admin/vendor/full-calendar/js/jquery-ui.min.js'></script>
 
     <!-- <script src='<?php echo base_url(); ?>assets/admin/vendor/full-calendar/js/calendar.js'></script> -->
+
     <script type="text/javascript">
     $(function()
     {
-        // var date = new Date();
-        // var b = date.getDate();
         var calendar = $('#calendar1').fullCalendar(
         {
             header: {
@@ -220,29 +219,6 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay,listWeek'
             },
-            
-            
-
-            // dayClick: function(date, jsEvent, view)
-            // {
-                
-            //     // alert(b);
-            //     window.location.href = "<?php echo base_url('agd/ekinerja/inputkinerjautama/input/');?>";
-            //     window.location.href(b);
-
-            // }
-
-            
-            // ============ JANGAN DIHAPUS ==============
-            // dayClick: function(date, jsEvent, view)
-            // {
-            //     // jQuery.noConflict();
-            //     // var startDate = new Date(date.getFullYear(), date.getMonth(), date.getDay());
-            //     jQuery.noConflict();
-                
-
-            //     $('#ModalInputAktivitasUtama').modal('show');
-            // }
 
             selectable: true,
             selectHelper: true,
@@ -257,6 +233,9 @@
 
 
                     $("#GetTanggalUmum").html("<label for='recipient-name' class='col-form-label'>Tanggal Kinerja*</label><input type='date' class='form-control' name='TanggalKinerja' value='"+start+"' readonly>");
+
+                    // $("#GetDaftarAktivitasByTanggalKinerja").html("$data['GetDaftarAktivitasByTanggalKinerja']  = $this->ModelInputKinerja->GetDaftarAktivitasByTanggalKinerja($IdPegawai, $"+start+")";
+
                 }
                 // alert(start);
                 // $.ajax ({

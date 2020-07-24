@@ -90,6 +90,16 @@ class ModelInputKinerja extends CI_Model
         $this->db->insert('MasterKinerjaPegawai',$data);
     }
 
+    public function GetDaftarAktivitasByTanggalKinerja($IdPegawai, $TanggalKinerja) //Menambahkan Data Baru Ke Database
+    {
+        $this->db->select('*');
+        $this->db->from('MasterKinerjaPegawai');
+        $this->db->join('MasterAktivitas', 'MasterAktivitas.IdAktivitas = MasterKinerjaPegawai.IdAktivitas');
+        $this->db->where('MasterKinerjaPegawai.IdPegawai', $IdPegawai);
+        $this->db->where('MasterKinerjaPegawai.TanggalKinerja', $TanggalKinerja);
+        return $this->db->get()->result();
+    }
+
     public function createIdKinerja($TanggalKinerja) //MEMBUAT REGISTRATION CODE
     {
         $query              = $this->db->query("SELECT MAX(RIGHT(IdKinerja,4)) AS kode_max FROM MasterKinerjaPegawai WHERE TanggalKinerja = '$TanggalKinerja'");
